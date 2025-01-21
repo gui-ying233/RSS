@@ -29,7 +29,7 @@ const feed = new RSS({
 		if (result?.code !== 200) throw new Error(result?.message ?? result);
 		const { list, total, offset: _offset } = result.results;
 		comics.push(...list);
-		if (comics.length < total) return await getComics(comics, _offset);
+		if (comics.length < total) return getComics(comics, _offset);
 		return comics;
 	};
 	(await getComics()).map(
