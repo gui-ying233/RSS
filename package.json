@@ -1,0 +1,19 @@
+{
+	"name": "rss",
+	"version": "1.0.0",
+	"description": "个人RSS源",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gui-ying233/RSS.git"
+	},
+	"author": "鬼影233",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/gui-ying233/RSS/issues"
+	},
+	"homepage": "https://github.com/gui-ying233/RSS",
+	"devDependencies": {
+		"jsdom": "latest",
+		"rss": "latest"
+	}
+}

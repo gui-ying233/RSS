@@ -1,0 +1,41 @@
+name: 生成 RSS
+on:
+    schedule:
+        - cron: "*/30 * * * *"
+    workflow_dispatch:
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 签出
+              uses: actions/checkout@v4
+            - name: 设置 node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
+            - name: 配置 git
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git reset --hard
+                  git pull --rebase
+            - name: 安装 npm 依赖
+              run: npm install
+            - name: 生成 RSS 文件
+              env:
+                  WEIBO_ID: ${{ vars.WEIBO_ID }}
+                  BILIBILI_SESSDATA: ${{ secrets.BILIBILI_SESSDATA }}
+                  COPYMANGA_TOKEN: ${{ secrets.COPYMANGA_TOKEN }}
+              run: node scripts/微博 & node scripts/bilibili & node scripts/拷貝漫畫 & wait
+            - name: 更新 RSS 文件
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  git add -f feeds/*
+                  if ! git diff-index --quiet HEAD --; then
+                      git commit -m "Update feed"
+                      git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/gui-ying233/RSS.git
+                  else
+                      echo "无更新"
+                  fi
