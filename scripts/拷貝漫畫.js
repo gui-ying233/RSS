@@ -43,8 +43,8 @@ const feed = new RSS({
 				path_word,
 				cover,
 			},
-		}) => {
-			return feed.item({
+		}) =>
+			feed.item({
 				title: name,
 				description: last_chapter_name,
 				url: `https://www.copymanga.tv/comic/${path_word}`,
@@ -52,11 +52,10 @@ const feed = new RSS({
 				author: author.map(a => a.name).join("、"),
 				image_url: cover.replace(
 					/^https:\/\/sd\.mangafunb\.fun\/d\/daozeijiang\/cover\/(\d+)\.(\w+)\..*$/,
-					`https://sd.mangafunb.fun/d/daozeijiang/cover/$1.$2`
+					"https://sd.mangafunb.fun/d/daozeijiang/cover/$1.$2"
 				),
 				date: +new Date(datetime_updated) + 8 * 60 * 60 * 1000,
-			});
-		}
+			})
 	);
 	writeFileSync("feeds/copymanga.xml", feed.xml());
 })();
