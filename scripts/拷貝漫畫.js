@@ -43,19 +43,24 @@ const feed = new RSS({
 				path_word,
 				cover,
 			},
-		}) =>
-			feed.item({
+		}) => {
+			const image_url = cover.replace(
+				/^https:\/\/hi77-overseas\.mangafunb\.fun\/d\/daozeijiang\/cover\/(\d+)\.(\w+)\..*$/,
+				"https://hi77-overseas.mangafunb.fun/d/daozeijiang/cover/$1.$2"
+			);
+			return feed.item({
 				title: name,
 				description: last_chapter_name,
 				url: `https://www.mangacopy.com/comic/${path_word}`,
 				guid: uuid,
 				author: author.map(a => a.name).join("、"),
-				image_url: cover.replace(
-					/^https:\/\/hi77-overseas\.mangafunb\.fun\/d\/daozeijiang\/cover\/(\d+)\.(\w+)\..*$/,
-					"https://hi77-overseas.mangafunb.fun/d/daozeijiang/cover/$1.$2"
-				),
+				image_url,
 				date: +new Date(datetime_updated) + 8 * 60 * 60 * 1000,
-			})
+				enclosure: {
+					url: image_url,
+				},
+			});
+		}
 	);
 	writeFileSync("feeds/copymanga.xml", feed.xml());
 })();
