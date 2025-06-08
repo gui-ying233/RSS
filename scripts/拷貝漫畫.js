@@ -6,15 +6,15 @@ const { writeFileSync } = require("fs");
 const RSS = require("rss");
 const feed = new RSS({
 	title: "我收藏的漫畫",
-	site_url: "https://www.copymanga.tv",
-	image_url: "https://www.copymanga.tv/favicon.ico",
+	site_url: "https://www.mangacopy.com",
+	image_url: "https://www.mangacopy.com/favicon.ico",
 	language: "zh-CN",
 	ttl: 5,
 });
 (async () => {
 	const getComics = async (comics = [], offset = 0) => {
 		const result = await fetch(
-			`https://copymanga.tv/api/v3/member/collect/comics?${new URLSearchParams(
+			`https://www.mangacopy.com/api/v3/member/collect/comics?${new URLSearchParams(
 				{
 					ordering: "-datetime_updated",
 					offset,
@@ -47,12 +47,12 @@ const feed = new RSS({
 			feed.item({
 				title: name,
 				description: last_chapter_name,
-				url: `https://www.copymanga.tv/comic/${path_word}`,
+				url: `https://www.mangacopy.com/comic/${path_word}`,
 				guid: uuid,
 				author: author.map(a => a.name).join("、"),
 				image_url: cover.replace(
-					/^https:\/\/sd\.mangafunb\.fun\/d\/daozeijiang\/cover\/(\d+)\.(\w+)\..*$/,
-					"https://sd.mangafunb.fun/d/daozeijiang/cover/$1.$2"
+					/^https:\/\/hi77-overseas\.mangafunb\.fun\/d\/daozeijiang\/cover\/(\d+)\.(\w+)\..*$/,
+					"https://hi77-overseas.mangafunb.fun/d/daozeijiang/cover/$1.$2"
 				),
 				date: +new Date(datetime_updated) + 8 * 60 * 60 * 1000,
 			})
