@@ -27,9 +27,8 @@ jobs:
             - name: 生成 RSS 文件
               env:
                   WEIBO_ID: ${{ vars.WEIBO_ID }}
-                  BILIBILI_SESSDATA: ${{ secrets.BILIBILI_SESSDATA }}
                   COPYMANGA_TOKEN: ${{ secrets.COPYMANGA_TOKEN }}
-              run: node scripts/微博 & node scripts/bilibili & node scripts/拷貝漫畫 & wait
+              run: node scripts/微博 & node scripts/拷貝漫畫 & wait
             - name: 更新 RSS 文件
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

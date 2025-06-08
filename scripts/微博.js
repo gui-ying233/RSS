@@ -80,6 +80,9 @@ const feed = new RSS({
 						author,
 						date,
 						image_url,
+						enclosure: {
+							url: image_url,
+						},
 					})
 				)
 		)
