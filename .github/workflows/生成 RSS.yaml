@@ -27,8 +27,9 @@ jobs:
             - name: 生成 RSS 文件
               env:
                   WEIBO_ID: ${{ vars.WEIBO_ID }}
+                  GREASYFORK_ID: ${{ vars.GREASYFORK_ID }}
                   COPYMANGA_TOKEN: ${{ secrets.COPYMANGA_TOKEN }}
-              run: node scripts/微博 & node scripts/拷貝漫畫 & wait
+              run: node scripts/微博 & node scripts/拷貝漫畫 & node scripts/油猴 & wait
             - name: 更新 RSS 文件
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
