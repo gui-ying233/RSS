@@ -73,7 +73,7 @@ const feed = new RSS({
 				.filter(c => +new Date(c.date) > d)
 				.forEach(({ description, guid, url, date, image_url }) =>
 					feed.item({
-						title: description.split("<br />")[0],
+						title: description.split(/(?:<br \/>|。|…|.|？|\?|！)/)[0],
 						description,
 						url,
 						guid,
