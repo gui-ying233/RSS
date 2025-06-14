@@ -1,8 +1,7 @@
 "use strict";
-// const {
-// 	env: { GREASYFORK_ID },
-// } = require("process");
-const GREASYFORK_ID = 1065081;
+const {
+	env: { GREASYFORK_ID },
+} = require("process");
 const { writeFileSync } = require("fs");
 const jsdom = require("jsdom");
 const RSS = require("rss");
